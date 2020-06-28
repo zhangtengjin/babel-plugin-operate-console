@@ -20,6 +20,11 @@ let name = 'zhangsan';
 ```
 
 ## Usage
+
+```
+npm install babel-plugin-operate-console -D
+```
+
 Via .babelrc or babel-loader.
 + comment
 ```

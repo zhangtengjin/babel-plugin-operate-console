@@ -2,7 +2,7 @@
   "name": "babel-plugin-operate-console",
   "version": "1.0.0",
   "description": "a babel-plugin for oprtation console",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,11 @@
     "url": "git+https://github.com/zhangtengjin/babel-plugin-operate-console.git"
   },
   "keywords": [
-    "babel-plugin"
+    "babel",
+    "plugin",
+    "console",
+    "remove",
+    "comment"
   ],
   "author": "qingyi",
   "license": "ISC",
