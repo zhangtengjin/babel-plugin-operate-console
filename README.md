@@ -43,5 +43,4 @@ Via .babelrc or babel-loader.
         }
     ]
 }
-+remove 
 ```
