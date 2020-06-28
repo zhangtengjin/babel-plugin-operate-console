@@ -25,7 +25,7 @@ Via .babelrc or babel-loader.
 ```
 {
     "plugins": [
-        "operate-consoel",
+        "operate-console",
         {
             "types": ['comment']
         }
@@ -37,7 +37,7 @@ Via .babelrc or babel-loader.
 ```
 {
     "plugins": [
-        "operate-consoel",
+        "operate-console",
         {
             "types": ['remove']
         }
