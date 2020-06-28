@@ -1,15 +1,9 @@
-console.log('foo')
-console.time('bar')
-console.error('network error')
-console.timeEnd('bar')
-let a = 1;
-// const babel = require('babel-core');
-// const plugin = require('../src');
-// const exampleCode = `
-// console.log('foo')
-// console.time('bar')
-// console.error('network error')
-// console.timeEnd('bar')
-// `
-// const { code } = babel.transform(exampleCode, {plugins: [plugin]});
-// console.log(code)
+const babel = require('babel-core');
+const plugin = require('../.babelrc.js');
+const exampleCode = `
+let name = 'zhangsan';
+console.log('test1');
+console.log('test2');
+`
+const { code } = babel.transform(exampleCode, plugin );
+console.log(code)

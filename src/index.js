@@ -1,5 +1,5 @@
 module.exports = function ({ types: t }) {
-    const keyPathVisitor = (node, properties) => {
+    const getKeyPath = (node, properties) => {
         let temp = node
         for (let item of properties) {
             if (temp[item])
@@ -16,22 +16,28 @@ module.exports = function ({ types: t }) {
             this.cache = {};
         },
         visitor: {
-            ExpressionStatement(path, { opts }) {
-                // ignore
-                // const { object, property } = path.node.expression.callee;
-                // if (object.name !== 'console') return;
-                // const isIgnore = (opts.ignore || []).find(ele => ele === property.name)
-                // if(!isIgnore) path.remove();
-                // drop
-                const node = path.node;
-                const expressionNode = keyPathVisitor(node, ['expression']);
-                const isCallExpression = expressionNode.type === 'CallExpression';
-                if (isCallExpression) {
-                    const objectName = keyPathVisitor(expressionNode, ['callee', 'object', 'name']);
-                    const prototypeName = keyPathVisitor(expressionNode, ['callee', 'property', 'name']);
-                    if (objectName === 'console' && prototypeName === 'log') {
-                        path.remove();
+            ExpressionStatement: {
+                enter (path, { opts }) {
+                    const { types } = opts;
+                    if (Array.isArray(types) && types.length > 0) {
+                        const node = path.node;
+                        const expressionNode = getKeyPath(node, ['expression']);
+                        const isCallExpression = expressionNode.type === 'CallExpression';
+                        if (isCallExpression) {
+                            const objectName = getKeyPath(expressionNode, ['callee', 'object', 'name']);
+                            const prototypeName = getKeyPath(expressionNode, ['callee', 'property', 'name']);
+                            if (objectName === 'console' && prototypeName === 'log') {
+                                if (types.indexOf('comment') > -1) {
+                                    path.node['expression']['callee']['object']['name'] = `// ${objectName}`
+                                } else if (types.indexOf('remove') > -1) {
+                                    path.remove();
+                                }
+                            }
+                        }
                     }
+                },
+                exit () {
+                    console.log('exit')   
                 }
             }
         },
